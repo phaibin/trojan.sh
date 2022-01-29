@@ -428,8 +428,8 @@ function repair_cert(){
     local_addr=`curl ipv4.icanhazip.com`
     if [ $real_addr == $local_addr ] ; then
         ~/.acme.sh/acme.sh  --register-account  -m phaibin@gmail.com --server zerossl
-        ~/.acme.sh/acme.sh  --issue --dns dns_ali -d $your_domain -d "*.$your_domain" 
-        ~/.acme.sh/acme.sh  --installcert  -d  $your_domain -d "*.$your_domain" \
+        ~/.acme.sh/acme.sh -f --issue --dns dns_ali -d $your_domain -d "*.$your_domain" 
+        ~/.acme.sh/acme.sh -f --installcert  -d  $your_domain -d "*.$your_domain" \
             --key-file   /usr/src/trojan-cert/$your_domain/private.key \
             --fullchain-file /usr/src/trojan-cert/$your_domain/fullchain.cer \
             --reloadcmd  "systemctl restart trojan"
@@ -502,7 +502,7 @@ function update_trojan(){
 }
 
 function install_acme(){
-    file_path="~/.acme.sh/acme.sh/"
+    file_path="$HOME/.acme.sh/acme.sh"
     if [ -f "$file_path" ]
     then
         red "$file_path 已存在"
